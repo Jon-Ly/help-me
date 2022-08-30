@@ -1,0 +1,12 @@
+.mainNavigation {
+    display: flex;
+    flex-direction: column;
+    max-width: 15rem;
+    background-color: #87D892;
+    min-height: 100vh;
+    flex: 1 0 auto;
+}
+
+.itemList {
+    padding: 0;
+}

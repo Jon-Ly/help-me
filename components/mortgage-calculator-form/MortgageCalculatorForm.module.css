@@ -1,0 +1,14 @@
+.calculatorSection {
+    flex: 15% 0 auto;
+}
+
+.calculatorForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.calculatorForm > label {
+    display: flex;
+    flex-direction: column;
+}
