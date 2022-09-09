@@ -8,7 +8,7 @@ export default function TextInput(props: InputProps) {
             defaultValue={value} 
             value={value} 
             name={name} 
-            onChange={e => onChange(e.target.name, e.target.value)}
+            onChange={onChange}
         />
     )
 }

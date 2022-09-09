@@ -1,7 +1,9 @@
+import { ChangeEventHandler } from "react"
+
 export interface InputProps {
     value?: string | number | readonly string[] | undefined,
     name: string,
-    onChange: (name: string, value: any) => void
+    onChange: ChangeEventHandler
 }
 
 export interface NumberProps extends InputProps{

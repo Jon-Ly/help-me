@@ -6,10 +6,16 @@ export default class MortgageInformation {
     private _mortgage: Mortgage = {}
     private _schedule: MortgageSchedule[] = []
 
-    constructor(mortgage?: Mortgage) {
-        this._mortgage = mortgage || {}
+    constructor(mortgageInformation?: MortgageInformation) {
+        if (mortgageInformation) {
+            this._mortgage = mortgageInformation.Mortgage
 
-        if (mortgage) {
+            if (!mortgageInformation?.Mortgage?.Term) {
+                this._mortgage.Term = 30
+            }
+        }
+
+        if (this._mortgage?.HomePrice) {
             this.SetSchedule()
         }
     }
@@ -22,29 +28,38 @@ export default class MortgageInformation {
         return this._schedule
     }
 
+    /**
+     * Calculates each data point for the Amortization schedule
+     */
     private SetSchedule() {
         this._schedule = []
         const mortgage = this._mortgage
 
-        let remainingBalance = (mortgage.homePrice ?? 0) - (mortgage.downPayment ?? 0)
-        const loanAmount = (mortgage.homePrice ?? 0) - (mortgage.downPayment ?? 0)
-        const monthlyInterestPercent = (mortgage.interest ?? 0) / 100 / 12
+        let remainingBalance = (mortgage.HomePrice ?? 0) - (mortgage.DownPayment ?? 0)
+        const loanAmount = (mortgage.HomePrice ?? 0) - (mortgage.DownPayment ?? 0)
+        const monthlyInterestPercent = (mortgage.Interest ?? 0) / 100 / 12
 
+        // P * (r * (1 + r)^n) / ((1 + r^n) - 1)
+        // P = principal
+        // r = monthly interest rate
+        // n = number of payments over the loan's lifetime
         const principalInterest = loanAmount * 
-            (monthlyInterestPercent * Math.pow(1 + monthlyInterestPercent, (mortgage.term ?? 0) * 12)) / 
-            (Math.pow(1 + monthlyInterestPercent, (mortgage.term ?? 0) * 12) - 1)
+            (monthlyInterestPercent * Math.pow(1 + monthlyInterestPercent, (mortgage.Term ?? 0) * 12)) / 
+            (Math.pow(1 + monthlyInterestPercent, (mortgage.Term ?? 0) * 12) - 1)
 
-        while(remainingBalance > 0) {
-            const interest = Number((((mortgage.interest ?? 0)/100/12) * remainingBalance).toFixed(2))
-
-            this._schedule.push({
-                Principal: principalInterest - interest,
-                Interest: interest,
-                StartBalance: remainingBalance,
-                EndBalance: principalInterest - interest
-            });
-
-            remainingBalance -= (principalInterest - interest)
+        if (!isNaN(principalInterest)) {
+            while(remainingBalance > 0) {
+                const interest = Number((((mortgage.Interest ?? 0)/100/12) * remainingBalance).toFixed(2))
+    
+                this._schedule.push({
+                    Principal: principalInterest - interest,
+                    Interest: interest,
+                    StartBalance: remainingBalance,
+                    EndBalance: principalInterest - interest
+                });
+    
+                remainingBalance -= (principalInterest - interest)
+            }
         }
     }
 
