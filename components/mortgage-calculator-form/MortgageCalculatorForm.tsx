@@ -1,4 +1,4 @@
-import Mortgage from "../../interfaces/Mortgage";
+import Mortgage from "../../models/Mortgage/Mortgage";
 import TextInput from "../inputs/text-input";
 import styles from './MortgageCalculatorForm.module.css'
 
@@ -44,6 +44,7 @@ export default function MortgageCalculatorForm(props: MortgageCalculatorFormProp
                     <TextInput onChange={onChange} name={fieldNames.homeOwnerInsurance} value={mortgage.homeOwnerInsurance}/>
                 </label>
                 <label>
+                    {/* TODO: Hook-up to onChange, requires different hookup compared to TextInput */}
                     Loan Term
                     <select value={mortgage.term}>
                         <option value={30}>30</option>

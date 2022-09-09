@@ -1,15 +1,26 @@
 import { useState } from "react"
+import MortgageAmortizationChart from "../../components/mortgage-amortization-chart"
 import MortgageCalculatorForm from "../../components/mortgage-calculator-form"
 import MortgageSummary from "../../components/mortgage-summary"
-import Mortgage from "../../interfaces/Mortgage"
+import Mortgage from "../../models/Mortgage/Mortgage"
+import MortgageInformation from "../../models/Mortgage/MortgageInformation"
 import MathUtility from "../../utility/MathUtility"
 import RegexUtility from "../../utility/RegexUtility"
 import styles from './MortgageCalculatorPage.module.css'
 
 export default function MortgageIndex() {
     const [mortgage, setMortgageData] = useState<Mortgage>({
-        term: 30
+        homePrice: 0,
+        downPayment: 0,
+        downPaymentPercent: 0,
+        interest: 0,
+        propertyTax: 0,
+        privateMortgageInsurance: 0,
+        homeOwnerInsurance: 0,
+        term: 30,
     })
+
+    const [mortgageInformation, setMortgageInformation] = useState<MortgageInformation>(new MortgageInformation())
 
     const fieldNames = {
         homePrice: 'homePrice',
@@ -18,33 +29,40 @@ export default function MortgageIndex() {
         interest: 'interest',
         propertyTax: 'propertyTax',
         privateMortgageInsurance: 'privateMortgageInsurance',
-        homeOwnerInsurance: 'homeOwnerInsurance'
+        homeOwnerInsurance: 'homeOwnerInsurance',
+        term: 'term'
     }
 
-    function onChange(name: string, value: any) {
-        let newValue: any = ''
+    /**
+     * TODO: Refactor - consolidate Mortgage & MortgageInformation usage. Rename MortgageInformation to Mortgage & Mortgage to MortgageInput
+     * Updates the mortgage information when a form's field is changed.
+     * @param name 
+     * @param value 
+     */
+    function onChange(name: string, value: string) {
+        let newValue: number = Number(value)
 
-        setMortgageData((prev: Mortgage) => {
-            // Automatically recalculates Downpayment based on downPaymentPercentage
-            // Can be annoying if you wanted to put in a flat amount without the amount changing
-            if (name === fieldNames.homePrice) {
-                newValue = value
-                prev.downPayment = recalculateDownPaymentByHomePrice(newValue)
-            } else if (name === fieldNames.downPaymentPercent) {
-                if (RegexUtility.IsUSD(value) && value[value.length - 1] != '.') {
-                    newValue = MathUtility.clamp(Number(value), 0, 100)
-                    prev.downPayment = recalculateDownPaymentByPercentage(newValue)
+        if (!isNaN(newValue)) {
+            setMortgageData((prev: Mortgage) => {
+                // Automatically recalculates Downpayment based on downPaymentPercentage
+                // Can be annoying if you wanted to put in a flat amount without the amount changing
+                if (name === fieldNames.homePrice) {
+                    prev.downPayment = recalculateDownPaymentByHomePrice(newValue)
+                } else if (name === fieldNames.downPaymentPercent) {
+                    if (RegexUtility.IsUSD(value) && value[value.length - 1] != '.') {
+                        newValue = MathUtility.clamp(Number(value), 0, 100)
+                        prev.downPayment = recalculateDownPaymentByPercentage(newValue)
+                    }
+                } else if (name === fieldNames.downPayment) {
+                    newValue = MathUtility.clamp(Number(value), 0, Number.MAX_SAFE_INTEGER)
+                    prev.downPaymentPercent = recalculateDownPaymentPercentage(newValue)
                 }
-            } else if (name === fieldNames.downPayment) {
-                newValue = MathUtility.clamp(Number(value), 0, Number.MAX_SAFE_INTEGER)
-                prev.downPaymentPercent = recalculateDownPaymentPercentage(newValue)
-            } else {
-                newValue = value
-            }
-
-            prev[name as keyof Mortgage] = newValue
-            return {...prev}
-        })
+    
+                prev[name as keyof Mortgage] = newValue
+                setMortgageInformation(new MortgageInformation({...prev}))
+                return {...prev}
+            })
+        }
     }
 
     function recalculateDownPaymentByPercentage(percentage: number) {
@@ -62,10 +80,12 @@ export default function MortgageIndex() {
 
         return 100
     }
+    
     return (
         <article className={styles.mortgageCalculatorPage}>
             <MortgageCalculatorForm fieldNames={fieldNames} onChange={onChange} mortgage={mortgage}/>
-            <MortgageSummary mortgage={mortgage}/>
+            <MortgageSummary mortgageInformation={mortgageInformation}/>
+            <MortgageAmortizationChart mortgageInformation={mortgageInformation}/>
         </article>
     )
 }

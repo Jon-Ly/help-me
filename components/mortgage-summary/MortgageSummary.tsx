@@ -1,12 +1,19 @@
-import Mortgage from '../../interfaces/Mortgage'
+import { useEffect, useState } from 'react'
+import Mortgage from '../../models/Mortgage/Mortgage'
+import MortgageInformation from '../../models/Mortgage/MortgageInformation'
 import styles from './MortgageSummary.module.css'
 
 export interface MortgageSummaryProps {
-    mortgage: Mortgage
+    mortgageInformation: MortgageInformation
 }
 
 export default function MortgageSummary(props: MortgageSummaryProps) {
-    const { mortgage } = props
+    const { mortgageInformation } = props
+    const [mortgage, setMortgage] = useState<Mortgage>(mortgageInformation?.Mortgage ?? {})
+
+    useEffect(() => {
+        setMortgage(mortgageInformation?.Mortgage ?? {})
+    }, [mortgageInformation])
 
     function getMonthlyPayment(): number {
         const principalInterest = getPrincipalInterest()
@@ -51,6 +58,16 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
         return Number((getPrincipalInterest() - getStartingInterest()).toFixed(2))
     }
 
+    function getTotalInterestPaid(): number {
+        let result = 0
+
+        for(let i = 0; i < mortgageInformation?.Schedule?.length; i++) {
+            result += mortgageInformation.Schedule[i].Interest
+        }
+
+        return isNaN(result) ? 0 : Number(result.toFixed(2))
+    }
+
     return (
         <section className={styles.mortgageSummarySection}>
             <h2>
@@ -76,6 +93,12 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
             </h4>
             <p>
                 ${(getHomeownerInsurance() + getPMI() + getPropertyTax()).toLocaleString('en-US')}
+            </p>
+            <h4>
+                Total Interest Paid
+            </h4>
+            <p>
+                ${getTotalInterestPaid()}
             </p>
         </section>
     )

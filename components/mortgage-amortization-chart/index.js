@@ -1,0 +1,3 @@
+import MortgageAmortizationChart from "./MortgageAmortizationChart"
+
+export default MortgageAmortizationChart
