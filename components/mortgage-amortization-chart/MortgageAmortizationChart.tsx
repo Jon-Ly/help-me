@@ -44,6 +44,13 @@ export default function MortgageAmortizationChart(props: MortgageAmortizationCha
                     text: 'USD'
                 }
             }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'left',
+                align: 'start'
+            }
         }
     }
 
@@ -98,7 +105,7 @@ export default function MortgageAmortizationChart(props: MortgageAmortizationCha
     function getChartXAxisLabel(): string[] {
         const result = []
 
-        for(let i = 1; i < mortgageInformation.Schedule.length; i++) {
+        for(let i = 1; i < mortgageInformation.Schedule.length + 1; i++) {
             result.push(`${i}`)
         }
 
@@ -107,13 +114,13 @@ export default function MortgageAmortizationChart(props: MortgageAmortizationCha
 
     return (
         // Must wrap in an empty div or else the dimensions will grow "indefinitely"
-        <div> 
+        <section> 
             <ChartJS type={chartType}
                 className={styles.mortgageAmortizationChart}
                 height='500px'
                 width='800px'
                 data={getChartData()}
                 options={options}/>
-        </div>
+        </section>
     )
 }

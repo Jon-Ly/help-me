@@ -1,5 +1,6 @@
 import { ChangeEventHandler } from "react";
 import MortgageInformation from "../../models/Mortgage/MortgageInformation";
+import NumberInput from "../inputs/number-input";
 import TextInput from "../inputs/text-input";
 import styles from './MortgageCalculatorForm.module.css'
 
@@ -26,11 +27,11 @@ export default function MortgageCalculatorForm(props: MortgageCalculatorFormProp
                 </label>
                 <label>
                     Down Payment %
-                    <TextInput onChange={onChange} name={fieldNames?.DownPaymentPercent} value={mortgageInformation?.Mortgage?.DownPaymentPercent}/>
+                    <NumberInput onChange={onChange} name={fieldNames?.DownPaymentPercent} value={mortgageInformation?.Mortgage?.DownPaymentPercent}/>
                 </label>
                 <label>
                     Interest Rate (APR)
-                    <TextInput onChange={onChange} name={fieldNames?.Interest} value={mortgageInformation?.Mortgage?.Interest}/>
+                    <NumberInput onChange={onChange} name={fieldNames?.Interest} value={mortgageInformation?.Mortgage?.Interest}/>
                 </label>
                 <label>
                     Property Tax

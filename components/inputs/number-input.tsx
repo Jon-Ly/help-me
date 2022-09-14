@@ -8,20 +8,19 @@ export default function NumberInput(props: NumberProps) {
             {
                 prefix ? (
                     <>
+                        {/* TODO: Set prefix's position within the input, add left/right as a prop */}
                         <span>{prefix}</span>
                         <input type='number'
-                            defaultValue={value} 
                             value={value} 
                             name={name} 
-                            onChange={e => onChange(e.target.name, e.target.value)}
+                            onChange={onChange}
                         />
                     </>
                 ) : (
                     <input type='number'
-                        defaultValue={value} 
                         value={value} 
                         name={name} 
-                        onChange={e => onChange(e.target.name, e.target.value)}
+                        onChange={onChange}
                     />
                 )
             }

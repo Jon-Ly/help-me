@@ -20,18 +20,18 @@ export default class MortgageInformation {
         }
     }
 
-    public get Mortgage() {
+    public get Mortgage(): Mortgage {
         return this._mortgage
     }
 
-    public get Schedule() {
+    public get Schedule(): MortgageSchedule[] {
         return this._schedule
     }
 
     /**
      * Calculates each data point for the Amortization schedule
      */
-    private SetSchedule() {
+    private SetSchedule(): void {
         this._schedule = []
         const mortgage = this._mortgage
 
@@ -48,22 +48,24 @@ export default class MortgageInformation {
             (Math.pow(1 + monthlyInterestPercent, (mortgage.Term ?? 0) * 12) - 1)
 
         if (!isNaN(principalInterest)) {
-            while(remainingBalance > 0) {
-                const interest = Number((((mortgage.Interest ?? 0)/100/12) * remainingBalance).toFixed(2))
+            let month = 0
+            while(month !== (mortgage.Term ?? 0) * 12) {
+                const interest = ((mortgage.Interest ?? 0)/100/12 * remainingBalance)
     
                 this._schedule.push({
                     Principal: principalInterest - interest,
-                    Interest: interest,
+                    Interest: Number(interest.toFixed(2)),
                     StartBalance: remainingBalance,
-                    EndBalance: principalInterest - interest
+                    EndBalance: remainingBalance - (principalInterest - interest)
                 });
     
                 remainingBalance -= (principalInterest - interest)
+                month++
             }
         }
     }
 
-    public get TotalInterestPaid() {
+    public get TotalInterestPaid(): number {
         return this._totalInterestPaid
     }
 
