@@ -29,7 +29,7 @@ export default function MortgageIndex() {
         const {name, value}: {name: string, value: string} = event?.target
         let newValue: number = Number(value)
 
-        if (!isNaN(newValue)) {
+        if (!isNaN(newValue) && name) {
             setMortgageInformation((prev: MortgageInformation) => {
                 // Automatically recalculates Downpayment based on downPaymentPercentage
                 // Can be annoying if you wanted to put in a flat amount without the amount changing
@@ -44,8 +44,9 @@ export default function MortgageIndex() {
                 } else if (name === fieldNames.Interest) {
                     newValue = MathUtility.clamp(newValue, 0, 100)
                 }
+
+                prev.Mortgage[name as keyof Mortgage] = value ? newValue : undefined
     
-                prev.Mortgage[name as keyof Mortgage] = newValue
                 return new MortgageInformation(prev)
             })
         }

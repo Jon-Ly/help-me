@@ -53,7 +53,7 @@ export default class MortgageInformation {
                 const interest = ((mortgage.Interest ?? 0)/100/12 * remainingBalance)
     
                 this._schedule.push({
-                    Principal: principalInterest - interest,
+                    Principal: Number((principalInterest - interest).toFixed(2)),
                     Interest: Number(interest.toFixed(2)),
                     StartBalance: remainingBalance,
                     EndBalance: remainingBalance - (principalInterest - interest)
