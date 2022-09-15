@@ -53,6 +53,10 @@ export default function MortgageCalculatorForm(props: MortgageCalculatorFormProp
                         <option value={15}>15</option>
                     </select>
                 </label>
+                <label>
+                    Monthly Extra
+                    <NumberInput onChange={onChange} name={fieldNames?.MonthlyExtra} value={mortgageInformation?.Mortgage?.MonthlyExtra}/>
+                </label>
             </form>
         </section>
     )

@@ -49,7 +49,7 @@ export default class MortgageInformation {
 
         if (!isNaN(principalInterest)) {
             let month = 0
-            while(month !== (mortgage.Term ?? 0) * 12) {
+            while(month !== (mortgage.Term ?? 0) * 12 && remainingBalance > 0) {
                 const interest = ((mortgage.Interest ?? 0)/100/12 * remainingBalance)
     
                 this._schedule.push({
@@ -59,7 +59,7 @@ export default class MortgageInformation {
                     EndBalance: remainingBalance - (principalInterest - interest)
                 });
     
-                remainingBalance -= (principalInterest - interest)
+                remainingBalance -= (principalInterest - interest) + (mortgage.MonthlyExtra ?? 0)
                 month++
             }
         }

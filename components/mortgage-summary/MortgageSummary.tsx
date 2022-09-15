@@ -68,6 +68,15 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
         return isNaN(result) ? 0 : Number(result.toFixed(2))
     }
 
+    function getTimeUntilPayOff(): string {
+        const years = Math.floor(mortgageInformation?.Schedule?.length / 12)
+        const months = mortgageInformation?.Schedule?.length % 12
+
+        console.log(mortgageInformation?.Schedule?.length)
+
+        return (mortgageInformation && mortgageInformation.Schedule) ? `${years} yrs, ${months} months` : "" 
+    }
+
     return (
         <section className={styles.mortgageSummarySection}>
             <h2>
@@ -98,7 +107,13 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
                 Total Interest Paid
             </h4>
             <p>
-                ${getTotalInterestPaid()}
+                ${getTotalInterestPaid().toLocaleString('en-US')}
+            </p>
+            <h4>
+                Time to pay off
+            </h4>
+            <p>
+                {getTimeUntilPayOff()}
             </p>
         </section>
     )

@@ -18,7 +18,8 @@ export default function MortgageIndex() {
         PropertyTax: 'PropertyTax',
         PrivateMortgageInsurance: 'PrivateMortgageInsurance',
         HomeOwnerInsurance: 'HomeOwnerInsurance',
-        Term: 'Term'
+        Term: 'Term',
+        MonthlyExtra: 'MonthlyExtra'
     }
 
     /**
@@ -43,6 +44,8 @@ export default function MortgageIndex() {
                     prev.Mortgage.DownPaymentPercent = recalculateDownPaymentPercentage(newValue)
                 } else if (name === fieldNames.Interest) {
                     newValue = MathUtility.clamp(newValue, 0, 100)
+                } else if (name === fieldNames.MonthlyExtra) {
+                    newValue = MathUtility.clamp(newValue, 0, 99999999)
                 }
 
                 prev.Mortgage[name as keyof Mortgage] = value ? newValue : undefined
