@@ -72,8 +72,6 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
         const years = Math.floor(mortgageInformation?.Schedule?.length / 12)
         const months = mortgageInformation?.Schedule?.length % 12
 
-        console.log(mortgageInformation?.Schedule?.length)
-
         return (mortgageInformation && mortgageInformation.Schedule) ? `${years} yrs, ${months} months` : "" 
     }
 
