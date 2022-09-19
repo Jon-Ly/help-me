@@ -5,7 +5,7 @@ import MortgageSummary from "../../components/mortgage-summary"
 import Mortgage from "../../models/Mortgage/Mortgage"
 import MortgageInformation from "../../models/Mortgage/MortgageInformation"
 import MathUtility from "../../utility/MathUtility"
-import styles from './MortgageCalculatorPage.module.css'
+import styles from './MortgagePage.module.css'
 
 export default function MortgageIndex() {
     const [mortgageInformation, setMortgageInformation] = useState<MortgageInformation>(new MortgageInformation())
@@ -72,10 +72,13 @@ export default function MortgageIndex() {
     }
     
     return (
-        <article className={styles.mortgageCalculatorPage}>
-            <MortgageCalculatorForm fieldNames={fieldNames} onChange={onChange} mortgageInformation={mortgageInformation}/>
-            <MortgageSummary mortgageInformation={mortgageInformation}/>
-            <MortgageAmortizationChart mortgageInformation={mortgageInformation}/>
-        </article>
+        <>
+            <h1>Mortgage Calculator</h1>
+            <article className={styles.mortgageCalculator}>
+                <MortgageCalculatorForm fieldNames={fieldNames} onChange={onChange} mortgageInformation={mortgageInformation}/>
+                <MortgageSummary mortgageInformation={mortgageInformation}/>
+                <MortgageAmortizationChart mortgageInformation={mortgageInformation}/>
+            </article>
+        </>
     )
 }

@@ -15,7 +15,6 @@ export default function MortgageCalculatorForm(props: MortgageCalculatorFormProp
 
     return (
         <section className={styles.calculatorSection}>
-            <h2>Mortgage Calculator</h2>
             <form className={styles.calculatorForm}>
                 <label>
                     Home Price

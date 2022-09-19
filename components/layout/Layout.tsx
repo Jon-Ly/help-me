@@ -15,8 +15,8 @@ export default function Layout(props: LayoutProps) {
             <NavbarItem link='/'>
                 Home
             </NavbarItem>
-            <NavbarItem link='/mortgage-calculator'>
-                Mortgage Calculator
+            <NavbarItem link='/mortgage'>
+                Buying a Home
             </NavbarItem>
         </Navbar>
 
