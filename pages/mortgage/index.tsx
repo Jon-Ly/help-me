@@ -26,7 +26,7 @@ export default function MortgageIndex() {
      * Updates the mortgage information when a form's field is changed.
      * @param event Change event from the various inputs
      */
-    function onChange(event: ChangeEvent<any>): void {
+    function onChange(event: ChangeEvent<HTMLInputElement>): void {
         const {name, value}: {name: string, value: string} = event?.target
         let newValue: number = Number(value)
 
