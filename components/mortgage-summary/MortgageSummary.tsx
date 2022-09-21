@@ -20,9 +20,10 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
         const privateMortgageInsurance = getPMI()
         const propertyTax = getPropertyTax()
         const homeownerInsurance = getHomeownerInsurance()
+        const monthlyExtra = (mortgage?.MonthlyExtra ?? 0)
 
         return isNaN(principalInterest) ? 0 : 
-            Number((principalInterest + propertyTax + privateMortgageInsurance + homeownerInsurance).toFixed(2))
+            Number((principalInterest + propertyTax + privateMortgageInsurance + homeownerInsurance + monthlyExtra).toFixed(2))
     }
 
     function getHomeownerInsurance(): number {
@@ -32,7 +33,7 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
     function getPMI(): number {
         const pmi = isNaN(Number(mortgage.PrivateMortgageInsurance)) ? 0 : Number(mortgage.PrivateMortgageInsurance)
 
-        return mortgage.DownPaymentPercent ?? 0 >= 20 ? 0 : pmi
+        return (mortgage.DownPaymentPercent ?? 0) >= 20 ? 0 : pmi
     }
 
     function getPropertyTax(): number {
