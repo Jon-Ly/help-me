@@ -46,7 +46,7 @@ export default function MortgageCalculatorForm(props: MortgageCalculatorFormProp
                 </label>
                 <label>
                     Loan Term
-                    <select value={mortgageInformation.Mortgage.Term} name={fieldNames?.Term} onChange={onChange}>
+                    <select value={mortgageInformation?.Mortgage?.Term} name={fieldNames?.Term} onChange={onChange}>
                         <option value={30}>30</option>
                         <option value={20}>20</option>
                         <option value={15}>15</option>

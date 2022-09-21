@@ -56,16 +56,16 @@ export default function MortgageIndex() {
     }
 
     function recalculateDownPaymentByPercentage(percentage: number): number {
-        return Number(((mortgageInformation.Mortgage.HomePrice ?? 0) * (percentage / 100)).toFixed(2))
+        return Number(((mortgageInformation?.Mortgage?.HomePrice ?? 0) * (percentage / 100)).toFixed(2))
     }
     
     function recalculateDownPaymentByHomePrice(newHomePrice: number): number {
-        return Number((newHomePrice * (mortgageInformation.Mortgage.DownPaymentPercent ?? 0) / 100).toFixed(2))
+        return Number((newHomePrice * (mortgageInformation?.Mortgage?.DownPaymentPercent ?? 0) / 100).toFixed(2))
     }
 
     function recalculateDownPaymentPercentage(flatAmount: number): number {
-        if (mortgageInformation.Mortgage.HomePrice) {
-            return flatAmount > mortgageInformation.Mortgage.HomePrice ? 100 : Number(((flatAmount / mortgageInformation.Mortgage.HomePrice) * 100).toFixed(2))
+        if (mortgageInformation?.Mortgage?.HomePrice) {
+            return flatAmount > mortgageInformation?.Mortgage?.HomePrice ? 100 : Number(((flatAmount / mortgageInformation?.Mortgage?.HomePrice) * 100).toFixed(2))
         }
 
         return 100
