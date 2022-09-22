@@ -6,7 +6,7 @@ class MathUtility {
      * @param max 
      * @returns 
      */
-    static clamp(value: number, min: number, max: number) {
+    static clamp(value: number, min: number, max: number): number {
         return isNaN(value) ? min :
             value > max ? max :
             value < min ? min :

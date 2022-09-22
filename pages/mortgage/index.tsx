@@ -1,5 +1,9 @@
 import { ChangeEvent, useState } from "react"
+import ModalFooter from "../../components/modal-footer"
+import ModalContent from "../../components/modal-content"
+import Modal from "../../components/modal"
 import MortgageAmortizationChart from "../../components/mortgage-amortization-chart"
+import MortgageAmortizationTable from "../../components/mortgage-amortization-table/MortgageAmortizationTable"
 import MortgageCalculatorForm from "../../components/mortgage-calculator-form"
 import MortgageSummary from "../../components/mortgage-summary"
 import Mortgage from "../../models/Mortgage/Mortgage"
@@ -9,6 +13,7 @@ import styles from './MortgagePage.module.css'
 
 export default function MortgageIndex() {
     const [mortgageInformation, setMortgageInformation] = useState<MortgageInformation>(new MortgageInformation())
+    const [openAmortizationModal, setOpenAmortizationModal] = useState<boolean>(false)
 
     const fieldNames: { [key: string]: string } = {
         HomePrice: 'HomePrice',
@@ -20,6 +25,10 @@ export default function MortgageIndex() {
         HomeOwnerInsurance: 'HomeOwnerInsurance',
         Term: 'Term',
         MonthlyExtra: 'MonthlyExtra'
+    }
+
+    function onAmortizationModalClose(): void {
+        setOpenAmortizationModal(false)
     }
 
     /**
@@ -78,7 +87,18 @@ export default function MortgageIndex() {
                 <MortgageCalculatorForm fieldNames={fieldNames} onChange={onChange} mortgageInformation={mortgageInformation}/>
                 <MortgageSummary mortgageInformation={mortgageInformation}/>
                 <MortgageAmortizationChart mortgageInformation={mortgageInformation}/>
+                <button onClick={() => setOpenAmortizationModal(true)}>View Breakdown</button>
             </article>
+            <Modal open={openAmortizationModal} onClose={onAmortizationModalClose}>
+                <ModalContent>
+                    <MortgageAmortizationTable mortgageSchedule={mortgageInformation?.Schedule}/>
+                </ModalContent>
+                <ModalFooter>
+                    <div className={styles.actionGroup}>
+                        <button onClick={onAmortizationModalClose}>Close</button>
+                    </div>
+                </ModalFooter>
+            </Modal>
         </>
     )
 }

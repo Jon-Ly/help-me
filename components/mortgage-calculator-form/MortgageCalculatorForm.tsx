@@ -41,7 +41,7 @@ export default function MortgageCalculatorForm(props: MortgageCalculatorFormProp
                     <TextInput onChange={onChange} name={fieldNames?.PrivateMortgageInsurance} value={mortgageInformation?.Mortgage?.PrivateMortgageInsurance}/>
                 </label>
                 <label>
-                    Homeowner's Insurance
+                    Homeowner&apos;s Insurance
                     <TextInput onChange={onChange} name={fieldNames?.HomeOwnerInsurance} value={mortgageInformation?.Mortgage?.HomeOwnerInsurance}/>
                 </label>
                 <label>

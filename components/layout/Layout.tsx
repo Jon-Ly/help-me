@@ -1,5 +1,5 @@
 import { NavbarItem } from '../navbar-item/NavbarItem'
-import { Navbar } from '../navbar/Navbar'
+import { Navbar } from '../navbar'
 import styles from './Layout.module.css'
 
 export interface LayoutProps {

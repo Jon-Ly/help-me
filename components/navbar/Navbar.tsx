@@ -4,7 +4,7 @@ export interface NavbarProps {
     children?: React.ReactNode
 }
 
-export function Navbar(props: NavbarProps) {
+export default function Navbar(props: NavbarProps) {
     const { children } = props
 
     return (

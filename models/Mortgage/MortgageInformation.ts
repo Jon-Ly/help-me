@@ -51,9 +51,10 @@ export default class MortgageInformation {
             let month = 0
             while(month !== (mortgage.Term ?? 0) * 12 && remainingBalance > 0) {
                 const interest = ((mortgage.Interest ?? 0)/100/12 * remainingBalance)
+                const noInterestAmount = principalInterest - interest
     
                 this._schedule.push({
-                    Principal: Number((principalInterest - interest).toFixed(2)),
+                    Principal: noInterestAmount > remainingBalance ? Number(remainingBalance.toFixed(2)) : Number(noInterestAmount.toFixed(2)),
                     Interest: Number(interest.toFixed(2)),
                     StartBalance: remainingBalance,
                     EndBalance: remainingBalance - (principalInterest - interest)
