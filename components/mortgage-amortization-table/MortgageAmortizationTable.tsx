@@ -41,16 +41,6 @@ export default function MortgageAmortizationTable(props: MortgageAmortizationTab
                         </tr>
                     ))
                 }
-                {
-                    mortgageSchedule[mortgageSchedule.length - 1]?.EndBalance > 0 && (
-                        <tr>
-                            <td>{mortgageSchedule[mortgageSchedule.length - 1]?.StartBalance?.toFixed(2)}</td>
-                            <td>0</td>
-                            <td>{mortgageSchedule[mortgageSchedule.length - 1]?.StartBalance?.toFixed(2)}</td>
-                            <td>0</td>
-                        </tr>
-                    )
-                }
             </tbody>
         </table>
     )
