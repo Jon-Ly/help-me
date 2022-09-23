@@ -57,7 +57,7 @@ export default class MortgageInformation {
                     Principal: noInterestAmount > remainingBalance ? Number(remainingBalance.toFixed(2)) : Number(noInterestAmount.toFixed(2)),
                     Interest: Number(interest.toFixed(2)),
                     StartBalance: remainingBalance,
-                    EndBalance: remainingBalance - (principalInterest - interest)
+                    EndBalance: remainingBalance - ((principalInterest - interest) + (mortgage.MonthlyExtra ?? 0))
                 });
     
                 remainingBalance -= (principalInterest - interest) + (mortgage.MonthlyExtra ?? 0)
