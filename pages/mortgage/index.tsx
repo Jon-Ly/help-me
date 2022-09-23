@@ -86,8 +86,9 @@ export default function MortgageIndex() {
             <article className={styles.mortgageCalculator}>
                 <MortgageCalculatorForm fieldNames={fieldNames} onChange={onChange} mortgageInformation={mortgageInformation}/>
                 <MortgageSummary mortgageInformation={mortgageInformation}/>
-                <MortgageAmortizationChart mortgageInformation={mortgageInformation}/>
-                <button onClick={() => setOpenAmortizationModal(true)}>View Breakdown</button>
+                <MortgageAmortizationChart mortgageInformation={mortgageInformation}>
+                    <button onClick={() => setOpenAmortizationModal(true)}>View Breakdown</button>
+                </MortgageAmortizationChart>
             </article>
             <Modal open={openAmortizationModal} onClose={onAmortizationModalClose}>
                 <ModalContent>

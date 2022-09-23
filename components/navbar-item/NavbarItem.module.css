@@ -6,7 +6,6 @@
 }
 
 .navbarItem:hover {
-    color: #ececec;
-    background-color: #65A76E;
+    background-color: var(--green-3);
     cursor: pointer;
 }

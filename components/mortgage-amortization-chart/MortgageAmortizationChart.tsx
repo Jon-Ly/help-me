@@ -16,11 +16,12 @@ import MortgageInformation from "../../models/Mortgage/MortgageInformation"
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
 
 export interface MortgageAmortizationChartProps {
-    mortgageInformation: MortgageInformation
+    mortgageInformation: MortgageInformation,
+    children?: React.ReactNode
 }
 
 export default function MortgageAmortizationChart(props: MortgageAmortizationChartProps) {
-    const { mortgageInformation } = props
+    const { mortgageInformation, children } = props
     const chartType = 'line'
     const options: ChartOptions = {
         scales: {
@@ -121,6 +122,7 @@ export default function MortgageAmortizationChart(props: MortgageAmortizationCha
                 width='800px'
                 data={getChartData()}
                 options={options}/>
+            {children}
         </section>
     )
 }
