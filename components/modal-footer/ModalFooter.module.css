@@ -1,5 +1,5 @@
 .actionGroup {
-    height: 3rem;
+    height: var(--size-8);
     text-align: right;
-    padding: 1rem;
+    padding: var(--size-3);
 }

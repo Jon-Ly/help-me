@@ -1,4 +1,4 @@
 .mortgageCalculator {
     display: flex;
-    gap: 2rem;
+    gap: var(--size-7);
 }

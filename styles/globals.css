@@ -32,9 +32,9 @@ ul {
 }
 
 input, select {
-  font-size: 1.05rem;
-  padding: 0.3rem;
-  margin-top: 0.15rem;
+  font-size: var(--font-size-1);
+  padding: var(--size-1);
+  margin-top: var(--size-1);
 }
 
 table {
@@ -55,7 +55,7 @@ table > thead > tr > th {
 
 table > thead > tr > th,
 table > tbody > tr > td {
-  padding: 0.35rem;
+  padding: var(--size-2);
 }
 
 table > tbody > tr {
