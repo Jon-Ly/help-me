@@ -1,16 +1,18 @@
-import MortgageInformation from "../../models/Mortgage/MortgageInformation";
-import StringUtility from "../../utility/StringUtility";
+import MortgageInformation from "../../models/Mortgage/MortgageInformation"
+import StringUtility from "../../utility/StringUtility"
+import styles from './MortgageAmortizationTable.module.css'
 
 export interface MortgageAmortizationTableProps {
-    mortgageInformation: MortgageInformation
+    mortgageInformation: MortgageInformation,
+    freezeHeaders?: boolean
 }
 
 export default function MortgageAmortizationTable(props: MortgageAmortizationTableProps) {
-    const { mortgageInformation } = props
+    const { mortgageInformation, freezeHeaders } = props
 
     function getExtraPaymentString(principal: number, remainingBalance: number): string {
         let monthlyExtra = mortgageInformation?.Mortgage?.MonthlyExtra ?? 0
-        
+
         if (monthlyExtra === 0) {
             return '$0.00'
         }
@@ -24,7 +26,7 @@ export default function MortgageAmortizationTable(props: MortgageAmortizationTab
 
     return (
         <table>
-            <thead>
+            <thead className={freezeHeaders ? styles.freezeHeaders : ''}>
                 <tr>
                     <th>
                         Month

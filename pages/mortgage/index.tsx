@@ -14,6 +14,7 @@ import styles from './MortgagePage.module.css'
 export default function MortgageIndex() {
     const [mortgageInformation, setMortgageInformation] = useState<MortgageInformation>(new MortgageInformation())
     const [openAmortizationModal, setOpenAmortizationModal] = useState<boolean>(false)
+    const [freezeHeaders, setFreezeHeaders] = useState<boolean>(true)
 
     const fieldNames: { [key: string]: string } = {
         HomePrice: 'HomePrice',
@@ -92,9 +93,13 @@ export default function MortgageIndex() {
             </article>
             <Modal open={openAmortizationModal} onClose={onAmortizationModalClose}>
                 <ModalContent>
-                    <MortgageAmortizationTable mortgageInformation={mortgageInformation}/>
+                    <MortgageAmortizationTable mortgageInformation={mortgageInformation} freezeHeaders={freezeHeaders}/>
                 </ModalContent>
                 <ModalFooter>
+                    <label>
+                        <input type='checkbox' checked={freezeHeaders} onChange={() => setFreezeHeaders(prev => !prev)}/>
+                        Freeze Headers
+                    </label>
                     <button onClick={onAmortizationModalClose}>Close</button>
                 </ModalFooter>
             </Modal>
