@@ -1,12 +1,26 @@
-import { MortgageSchedule } from "../../models/Mortgage/MortgageSchedule";
+import MortgageInformation from "../../models/Mortgage/MortgageInformation";
 import StringUtility from "../../utility/StringUtility";
 
 export interface MortgageAmortizationTableProps {
-    mortgageSchedule: MortgageSchedule[]
+    mortgageInformation: MortgageInformation
 }
 
 export default function MortgageAmortizationTable(props: MortgageAmortizationTableProps) {
-    const { mortgageSchedule } = props
+    const { mortgageInformation } = props
+
+    function getExtraPaymentString(principal: number, remainingBalance: number): string {
+        let monthlyExtra = mortgageInformation?.Mortgage?.MonthlyExtra ?? 0
+        
+        if (monthlyExtra === 0) {
+            return '$0.00'
+        }
+
+        if ((monthlyExtra + principal) > remainingBalance) {
+            monthlyExtra = (remainingBalance - principal) < 0 ? 0 : remainingBalance - principal
+        }
+
+        return monthlyExtra === 0 ? '$0.00' : StringUtility.formatNumberToUSD(monthlyExtra, true)
+    }
 
     return (
         <table>
@@ -17,6 +31,9 @@ export default function MortgageAmortizationTable(props: MortgageAmortizationTab
                     </th>
                     <th>
                         Principal
+                    </th>
+                    <th>
+                        Extra Payment
                     </th>
                     <th>
                         Interest
@@ -31,10 +48,11 @@ export default function MortgageAmortizationTable(props: MortgageAmortizationTab
             </thead>
             <tbody>
                 {
-                    mortgageSchedule.map((x, index) => (
+                    mortgageInformation?.Schedule?.map((x, index) => (
                         <tr key={x.StartBalance}>
                             <td>{index + 1}</td>
                             <td>{StringUtility.formatNumberToUSD(x.Principal, true)}</td>
+                            <td>{getExtraPaymentString(x.Principal, x.StartBalance)}</td>
                             <td>{StringUtility.formatNumberToUSD(x.Interest, true)}</td>
                             <td>{StringUtility.formatNumberToUSD(x.StartBalance, true)}</td>
                             <td>{x.EndBalance < 0 ? '$0.00' : StringUtility.formatNumberToUSD(x.EndBalance, true)}</td>

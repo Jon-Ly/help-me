@@ -8,7 +8,7 @@ export default function ModalFooter(props: ModalFooterProps) {
     const { children } = props
 
     return (
-        <div className={styles.actionGroup}>
+        <div className={styles.modalFooter}>
             {children}
         </div>
     )
