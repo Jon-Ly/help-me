@@ -33,6 +33,10 @@ export default function MortgageCalculatorForm(props: MortgageCalculatorFormProp
                     <NumberInput onChange={onChange} name={fieldNames?.Interest} value={mortgageInformation?.Mortgage?.Interest}/>
                 </label>
                 <label>
+                    Closing Cost
+                    <NumberInput onChange={onChange} name={fieldNames?.ClosingCost} value={mortgageInformation?.Mortgage?.ClosingCost}/>
+                </label>
+                <label>
                     Property Tax
                     <TextInput onChange={onChange} name={fieldNames?.PropertyTax} value={mortgageInformation?.Mortgage?.PropertyTax}/>
                 </label>

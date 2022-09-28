@@ -59,6 +59,22 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
         return Number((getPrincipalInterest() - getStartingInterest()).toFixed(2))
     }
 
+    function getUpfrontCost(): number {
+        const closingCost = (mortgage?.ClosingCost ?? 0)
+        const downPayment = (mortgage?.DownPayment ?? 0)
+        return closingCost + downPayment
+    }
+
+    function getTotalPaid(): number {
+        const termInMonths = mortgageInformation?.Schedule?.length
+        const totalHomeownerInsurance = getHomeownerInsurance() * termInMonths
+        const totalPmi = getPMI() * termInMonths
+        const totalPropertyTax = getPropertyTax() * termInMonths
+        const homePrice = mortgageInformation?.Mortgage?.HomePrice ?? 0
+
+        return getTotalInterestPaid() + homePrice + totalHomeownerInsurance + totalPmi + totalPropertyTax
+    }
+
     function getTotalInterestPaid(): number {
         let result = 0
 
@@ -103,10 +119,22 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
                 ${(getHomeownerInsurance() + getPMI() + getPropertyTax()).toLocaleString('en-US')}
             </p>
             <h4>
+                Upfront Cost
+            </h4>
+            <p>
+                ${getUpfrontCost().toLocaleString('en-US')}
+            </p>
+            <h4>
                 Total Interest Paid
             </h4>
             <p>
                 ${getTotalInterestPaid().toLocaleString('en-US')}
+            </p>
+            <h4>
+                Grand total
+            </h4>
+            <p>
+                ${getTotalPaid().toLocaleString('en-US')}
             </p>
             <h4>
                 Time to pay off

@@ -5,7 +5,8 @@ export default interface Mortgage {
     Interest?: number,
     PropertyTax?: number,
     PrivateMortgageInsurance?: number,
-    HomeOwnerInsurance?: number
+    HomeOwnerInsurance?: number,
     Term?: number,
-    MonthlyExtra?: number
+    MonthlyExtra?: number,
+    ClosingCost?: number
 }

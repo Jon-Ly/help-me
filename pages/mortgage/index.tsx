@@ -25,7 +25,8 @@ export default function MortgageIndex() {
         PrivateMortgageInsurance: 'PrivateMortgageInsurance',
         HomeOwnerInsurance: 'HomeOwnerInsurance',
         Term: 'Term',
-        MonthlyExtra: 'MonthlyExtra'
+        MonthlyExtra: 'MonthlyExtra',
+        ClosingCost: 'ClosingCost'
     }
 
     function onAmortizationModalClose(): void {
