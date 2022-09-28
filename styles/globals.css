@@ -82,3 +82,15 @@ table > tbody > tr {
 table > tbody > tr > td {
   border-top: 1px solid #dcdcdc;
 }
+
+/* TOOD: Move to a component */
+.card {
+  border-radius: var(--radius-1);
+  border: 1px solid var(--gray-7);
+  padding: var(--size-2);
+  margin-block: var(--size-2);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-block: var(--size-2);
+}

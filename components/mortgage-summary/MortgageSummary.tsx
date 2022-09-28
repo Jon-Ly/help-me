@@ -100,42 +100,46 @@ export default function MortgageSummary(props: MortgageSummaryProps) {
             <h4>
                 ${getMonthlyPayment().toLocaleString('en-US')}
             </h4>
-            <h4>
-                Starting Monthly Interest
-            </h4>
-            <p>
-                ${getStartingInterest().toLocaleString('en-US')}
-            </p>
-            <h4>
-                Starting Monthly Principal
-            </h4>
-            <p>
-                ${getStartingPrincipal().toLocaleString('en-US')}
-            </p>
-            <h4>
-                Insurances, PMI, Tax
-            </h4>
-            <p>
-                ${(getHomeownerInsurance() + getPMI() + getPropertyTax()).toLocaleString('en-US')}
-            </p>
-            <h4>
-                Upfront Cost
-            </h4>
-            <p>
-                ${getUpfrontCost().toLocaleString('en-US')}
-            </p>
-            <h4>
-                Total Interest Paid
-            </h4>
-            <p>
-                ${getTotalInterestPaid().toLocaleString('en-US')}
-            </p>
-            <h4>
-                Grand total
-            </h4>
-            <p>
-                ${getTotalPaid().toLocaleString('en-US')}
-            </p>
+            <div className='card'>
+                <h4>
+                    Starting Monthly Interest
+                </h4>
+                <p>
+                    ${getStartingInterest().toLocaleString('en-US')}
+                </p>
+                <h4>
+                    Starting Monthly Principal
+                </h4>
+                <p>
+                    ${getStartingPrincipal().toLocaleString('en-US')}
+                </p>
+                <h4>
+                    Insurances, PMI, Tax
+                </h4>
+                <p>
+                    ${(getHomeownerInsurance() + getPMI() + getPropertyTax()).toLocaleString('en-US')}
+                </p>
+            </div>
+            <div className='card'>
+                <h4>
+                    Upfront Cost
+                </h4>
+                <p>
+                    ${getUpfrontCost().toLocaleString('en-US')}
+                </p>
+                <h4>
+                    Total Interest Paid
+                </h4>
+                <p>
+                    ${getTotalInterestPaid().toLocaleString('en-US')}
+                </p>
+                <h4>
+                    Grand total
+                </h4>
+                <p>
+                    ${getTotalPaid().toLocaleString('en-US')}
+                </p>
+            </div>
             <h4>
                 Time to pay off
             </h4>

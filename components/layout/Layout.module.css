@@ -4,7 +4,7 @@
   
 .main {
     min-height: 100vh;
-    padding-block: var(--size-8);
+    padding-block: var(--size-2);
     padding-inline: var(--size-7);
     display: flex;
     flex-direction: column;
